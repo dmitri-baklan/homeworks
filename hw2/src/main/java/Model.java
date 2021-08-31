@@ -1,6 +1,4 @@
-package main.java.com.company;
 
-import org.junit.Test;
 
 public class Model {
 
@@ -14,9 +12,10 @@ public class Model {
 
     public void generateRandNumber(){
         this.x_value = (int) (Math.random()*(this.RANGE_MAX+1)+this.RANGE_MIN);         // [0; 100] boundaries include
+        System.out.println((this.x_value));
     }
 
-    @Test
+
     public boolean checkWin(int input){
         return this.x_value == input;
     }

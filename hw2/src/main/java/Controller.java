@@ -1,5 +1,3 @@
-package main.java.com.company;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +16,7 @@ public class Controller {
     ArrayList<Object> attempts = new ArrayList<Object>();
 
 
-    public Controller (Model model, View view){
+    public Controller(Model model, View view){
         this.model = model;
         this.view = view;
     }

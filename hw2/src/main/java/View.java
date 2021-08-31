@@ -1,5 +1,3 @@
-package main.java.com.company;
-
 import java.util.ArrayList;
 
 public class View {
