@@ -22,9 +22,8 @@ public class Controller {
     }
 
     public void startGame(){
-        int input = -1;             /*  */
+        int input = -1;
         model.generateRandNumber();
-
 
         do{
             Scanner sc = new Scanner(System.in);
