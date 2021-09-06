@@ -11,8 +11,8 @@ public class Note {
     public String nickName;
     public String comment;
     //skipped Users group
-    public int phoneNumber;
-    public int officeNumber;
+    public String phoneNumber;
+    public String officeNumber;
     public String email;
     public String skype;
     public String address;
