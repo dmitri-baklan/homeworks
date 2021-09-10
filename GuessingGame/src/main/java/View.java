@@ -9,6 +9,7 @@ public class View {
     public final String OUT_OF_RANGE_MESSAGE = "Incorrect number! Value should be in range: ";
     public final String INCORRECT_INPUT_MESSAGE = "Incorrect input! Enter a number, please: ";
 
+    View(){}
     public void printMessage(String message){
         System.out.println(message);
     }

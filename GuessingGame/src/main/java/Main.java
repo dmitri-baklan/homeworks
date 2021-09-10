@@ -1,5 +1,4 @@
-import javax.swing.text.View;
-import java.util.ArrayList;
+import java.*;
 
 public class Main {
 
