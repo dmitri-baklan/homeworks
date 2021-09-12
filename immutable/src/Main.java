@@ -3,6 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
         Age age = new Age();
+
         age.setYear(10);
         ImmutableStudent immutableStudent = new ImmutableStudent("Viktor",age);
         ImmutableStudent immutableStudent1 = immutableStudent.setName("PAvel");
@@ -11,6 +12,16 @@ public class Main {
         System.out.println(immutableStudent.getName()+" "+immutableStudent.getAge().getYear());
         System.out.println(immutableStudent1.getName()+" "+immutableStudent1.getAge().getYear());
         System.out.println(immutableStudent2.getName()+" "+immutableStudent2.getAge().getYear());
+/*
+        Age newage = new Age();
+        System.out.println(newage.equals(age));
+        newage = age;
+        System.out.println(newage.equals(age));
+        newage = null;
+        System.out.println(newage.equals(age));
+        System.out.println(newage.equals(age));
+
+        age = null;*/
 
     }
 
