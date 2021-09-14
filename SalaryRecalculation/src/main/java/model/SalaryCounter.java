@@ -8,34 +8,27 @@ import model.entity.Worker;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SalaryCounterWithMultiplier extends SalaryCounter{
-    public float standart_manager_multiplier = 0.3f;
-    public float standart_director_multiplier = 0.5f; // multiplier divided between all workers with same rank
-    public float standart_worker_multiplier = 0.2f;
+public class SalaryCounter{
+    private int addition_to_salary; //addition is equal for all employee
 
-    public float current_director_multiplier;
-    public float current_manager_multiplier;
-    public float current_worker_multiplier;
 
     private int salary_fond;
 
-    public SalaryCounterWithMultiplier(){
-
-    }
-
-    @Override
     public void getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
         assignSalaryForDepartment(department);
-        countCurrentMult(number_of_directors,
-                        number_of_managers,
-                        number_of_workers);
+        countCurrentAddition(number_of_directors,
+                number_of_managers,
+                number_of_workers,
+                this.salary_fond);
         getAdditionSalaryForDepartment(department);
     }
 
+
     public void assignSalaryForDepartment(Department department){
+
 
         Objects.requireNonNull(department,
                 "Department is null!");
@@ -58,25 +51,22 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
             }
         }
 
-
     }
-
-    @Override
     public void getAdditionSalaryForDepartment(Department department){
 
 
         assignDirectorAdditionalSalary(department.director,
-                getDirectorAddition());
+                addition_to_salary);
 
         if(department.getNumber_of_managers() != 0){
             assignManagersAdditionalSalary(department.director.managers,
-                    getManagerAddition());
+                    addition_to_salary);
         }
 
         for(Manager manager : department.director.managers){
             if(manager.getNumberOfWorkers()!= 0){
                 assignWorkersAdditionalSalary(manager.workers,
-                        getWorkerAddition());
+                        addition_to_salary);
             }
         }
     }
@@ -111,7 +101,7 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
     }
 
     public void assignManagersAdditionalSalary(ArrayList<Manager> managers,
-                                            int manager_additional_salary){
+                                               int manager_additional_salary){
         for(Manager manager : managers){
             manager.addToSalary(manager_additional_salary);
             this.salary_fond -= manager_additional_salary;
@@ -120,7 +110,7 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
     }
 
     public void assignWorkersAdditionalSalary(ArrayList<Worker> workers,
-                                           int worker_additional_salary){
+                                              int worker_additional_salary){
         for(Worker worker : workers){
             worker.setSalary(worker_additional_salary);
             this.salary_fond -= worker_additional_salary;
@@ -131,28 +121,18 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
 
 
 
-    public void countCurrentMult(int number_of_directors,
-                                 int number_of_managers,
-                                 int number_of_workers){
-        current_director_multiplier =
-                standart_director_multiplier/number_of_directors;
+    public void countCurrentAddition(int number_of_directors,
+                                     int number_of_managers,
+                                     int number_of_workers,
+                                     int rest_of_salary){
 
-        current_manager_multiplier =
-                standart_manager_multiplier/number_of_managers;
+        int number_of_employee = (number_of_directors +
+                number_of_managers + number_of_workers);
 
-        current_worker_multiplier =
-                standart_worker_multiplier/number_of_workers;
+        this.addition_to_salary = (rest_of_salary / number_of_employee);
     }
 
-    public int getDirectorAddition(){
-        return (int)(salary_fond * current_director_multiplier);
-    }
-    public int getManagerAddition(){
-        return (int)(salary_fond * current_manager_multiplier);
-    }
-    public int getWorkerAddition(){
-        return (int)(salary_fond * current_worker_multiplier);
-    }
+
     public int getSalary_fond() {return salary_fond;}
 
     public void setSalary_fond(int salary_fond) {

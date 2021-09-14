@@ -1,5 +1,8 @@
 package model.entity;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Employee {     //basic class for all workers
     public int id;
     public String name;
@@ -7,7 +10,7 @@ public class Employee {     //basic class for all workers
     public String surname;
     public String birth_date;
     public String employment_date;
-    public boolean isWorking = false;       //if employee is fired it`s false
+    public boolean isActive = false;       //if employee is fired it`s false
     private int salary;
     private int premium;
     public Employee(int id, String name, String middle_name, String surname,
@@ -18,7 +21,7 @@ public class Employee {     //basic class for all workers
         this. surname = surname;
         this.birth_date = birth_date;
         this.employment_date = employment_date;
-        this.isWorking = true;
+        this.isActive = true;
 
     }
     public int getId(){return id;}
@@ -27,5 +30,13 @@ public class Employee {     //basic class for all workers
     public int getPremium(){ return this.premium;}
     public void setPremium(int premium){ this.premium = premium;}
 
+    public void addToSalary(int addition){
+        this.salary += addition;
+    }
+
+    /*public int getNumberOfEmployees(ArrayList<Employee> employees){
+        Objects.requireNonNull(employees, "Employees is null at: "+this.id);
+        return employees.size();
+    }*/
 
 }

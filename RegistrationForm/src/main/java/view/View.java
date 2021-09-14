@@ -1,4 +1,5 @@
 package view;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -9,7 +10,7 @@ import static view.TextConstant.INPUT_WRONG_DATA;
 public class View {
 
     static String MESSAGES_BUNDLE_NAME = "messages";
-
+//    public ArrayList<Integer> in;
     public View(){
         System.out.println();
     }
