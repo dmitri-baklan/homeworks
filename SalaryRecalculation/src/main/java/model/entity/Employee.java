@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class Employee {     //basic class for all workers
@@ -8,13 +9,14 @@ public class Employee {     //basic class for all workers
     public String name;
     public String middle_name;
     public String surname;
-    public String birth_date;
-    public String employment_date;
+    public Date birth_date;
+    public Date employment_date;
     public boolean isActive = false;       //if employee is fired it`s false
     private int salary;
     private int premium;
+    public Employee(){};
     public Employee(int id, String name, String middle_name, String surname,
-                    String birth_date, String employment_date){
+                    Date birth_date, Date employment_date){
         this.id = id;
         this.name = name;
         this.middle_name = middle_name;

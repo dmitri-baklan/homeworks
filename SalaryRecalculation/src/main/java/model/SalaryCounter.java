@@ -1,43 +1,48 @@
 package model;
 
-import model.entity.Department;
-import model.entity.Director;
-import model.entity.Manager;
-import model.entity.Worker;
+import model.entity.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class SalaryCounter{
     private int addition_to_salary; //addition is equal for all employee
-
+    Date today;
 
     protected int salary_fond;
+    int premium;
+    SalaryCounter(){}
 
-    public void getSalaryForDepartment(Department department,
+    public Department getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
+        this.premium = 1000; //default premium
         this.salary_fond = department.getSalary_fond();
-        assignSalaryForDepartment(department);
+        department = assignSalaryForDepartment(department);
         countCurrentAddition(number_of_directors,
                 number_of_managers,
                 number_of_workers,
                 this.salary_fond);
-        getAdditionSalaryForDepartment(department);
+        department = getAdditionSalaryForDepartment(department);
+        return department;
     }
 
 
-    public void assignSalaryForDepartment(Department department){
+    public Department assignSalaryForDepartment(Department department){
 
         Objects.requireNonNull(department,
                 "Department is null!");
         Objects.requireNonNull(department.director,
                 "Director is null!");
+        this.today = new Date();
 
         this.salary_fond = department.getSalary_fond();
         assignDirectorDefaultSalary(department.director,
                 department.default_director_salary);
+
+
 
         if(department.getNumber_of_managers() != 0){
             assignManagersDefaultSalary(department.director.managers,
@@ -50,10 +55,13 @@ public class SalaryCounter{
                         department.default_worker_salary);
             }
         }
+        return department;
 
     }
 
-    public void getAdditionSalaryForDepartment(Department department){
+
+
+    public Department getAdditionSalaryForDepartment(Department department){
 
 
         assignDirectorAdditionalSalary(department.director,
@@ -70,18 +78,25 @@ public class SalaryCounter{
                         addition_to_salary);
             }
         }
+        return department;
     }
 
     public void assignDirectorDefaultSalary(Director director,
                                             int default_director_salary){
         director.setSalary(default_director_salary);
         this.salary_fond -= default_director_salary;
+        if(checkIsBirthday(director)){
+            director.setPremium(this.premium);
+        }
     }
     public void assignManagersDefaultSalary(ArrayList<Manager> managers,
                                             int default_manager_salary){
         for(Manager manager : managers){
             manager.setSalary(default_manager_salary);
             this.salary_fond -= default_manager_salary;
+            if (checkIsBirthday(manager)) {
+                manager.setPremium(this.premium);
+            }
         }
 
     }
@@ -91,6 +106,9 @@ public class SalaryCounter{
         for(Worker worker : workers){
             worker.setSalary(default_worker_salary);
             this.salary_fond -= default_worker_salary;
+            if(checkIsBirthday(worker)){
+                worker.setPremium(this.premium);
+            }
         }
 
     }
@@ -133,10 +151,19 @@ public class SalaryCounter{
         this.addition_to_salary = (rest_of_salary / number_of_employee);
     }
 
+    public boolean checkIsBirthday(Employee employee){
+        if(employee.birth_date.equals(this.today)){
+            return true;
+        }
+        return false;
+    }
 
     public int getSalary_fond() {return salary_fond;}
 
     public void setSalary_fond(int salary_fond) {
         this.salary_fond = salary_fond;
+    }
+    public void setPremium(int premium){
+        this.premium = premium;
     }
 }

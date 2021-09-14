@@ -19,21 +19,22 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
 
 
     @Override
-    public void getSalaryForDepartment(Department department,
+    public Department getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
 
-        assignSalaryForDepartment(department);
+        department = assignSalaryForDepartment(department);
         countCurrentMult(number_of_directors,
                         number_of_managers,
                         number_of_workers);
-        getAdditionSalaryForDepartment(department);
+        department = getAdditionSalaryForDepartment(department);
+        return department;
     }
 
 
     @Override
-    public void getAdditionSalaryForDepartment(Department department){
+    public Department getAdditionSalaryForDepartment(Department department){
 
         assignDirectorAdditionalSalary(department.director,
                 getDirectorAddition());
@@ -49,6 +50,7 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
                         getWorkerAddition());
             }
         }
+        return department;
     }
 
     public void countCurrentMult(int number_of_directors,

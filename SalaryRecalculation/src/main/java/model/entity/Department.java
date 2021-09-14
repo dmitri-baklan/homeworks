@@ -17,8 +17,8 @@ public class Department {
     int salary_fond;
     public Director director;
 
-    public Department(Director director, String name){
-        this.director = director;
+    public Department(int id, String name){
+        this.id = id;
         this.name = name;
     }
 
