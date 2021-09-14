@@ -12,12 +12,13 @@ public class SalaryCounter{
     private int addition_to_salary; //addition is equal for all employee
 
 
-    private int salary_fond;
+    protected int salary_fond;
 
     public void getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
+        this.salary_fond = department.getSalary_fond();
         assignSalaryForDepartment(department);
         countCurrentAddition(number_of_directors,
                 number_of_managers,
@@ -28,7 +29,6 @@ public class SalaryCounter{
 
 
     public void assignSalaryForDepartment(Department department){
-
 
         Objects.requireNonNull(department,
                 "Department is null!");
@@ -52,6 +52,7 @@ public class SalaryCounter{
         }
 
     }
+
     public void getAdditionSalaryForDepartment(Department department){
 
 
