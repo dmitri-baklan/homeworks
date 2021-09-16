@@ -1,12 +1,7 @@
-package model;
+package model.counters;
 
 import model.entity.Department;
-import model.entity.Director;
 import model.entity.Manager;
-import model.entity.Worker;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class SalaryCounterWithMultiplier extends SalaryCounter{
     public float standart_manager_multiplier = 0.3f;
@@ -16,6 +11,7 @@ public class SalaryCounterWithMultiplier extends SalaryCounter{
     public float current_director_multiplier;
     public float current_manager_multiplier;
     public float current_worker_multiplier;
+
 
 
     @Override

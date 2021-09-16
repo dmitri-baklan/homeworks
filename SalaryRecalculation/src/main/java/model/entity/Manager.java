@@ -6,6 +6,7 @@ import java.util.Date;
 public class Manager extends Employee{
 
     public ArrayList<Worker> workers;
+    public int premium;
 
     public Manager(int id, String name, String middle_name, String surname,
                    Date birth_date, Date employment_date) {
@@ -28,6 +29,13 @@ public class Manager extends Employee{
 
         }
 
+    }
+
+    public int getPremium() {
+        return premium;
+    }
+    public void setPremium(int premium){
+        this.premium = premium;
     }
 
 

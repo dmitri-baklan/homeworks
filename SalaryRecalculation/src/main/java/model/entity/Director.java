@@ -34,5 +34,20 @@ public class Director extends Employee{
 
     }
 
+    public void sortManagersByEmploymnetDate(){
+        for(int i = 0; i < managers.size() - 2; i++){
+            for(int j = 0; j < managers.size() - 2; j++)
+            {
+                if(managers.get(i).employment_date.getTime() > managers.get(i+1).employment_date.getTime() ){
+                    Manager temp = managers.get(i);
+                    managers.set(i, managers.get(i+1));
+                    managers.set(i+1, temp);
+                    continue;
+                }
+                else break;
+            }
+
+        }
+    }
 
 }

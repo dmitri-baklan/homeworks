@@ -13,6 +13,7 @@ public class Employee {     //basic class for all workers
     public Date employment_date;
     public boolean isActive = false;       //if employee is fired it`s false
     private int salary;
+    private int birthday_bonus;
     private int premium;
     public Employee(){};
     public Employee(int id, String name, String middle_name, String surname,
@@ -29,9 +30,8 @@ public class Employee {     //basic class for all workers
     public int getId(){return id;}
     public int getSalary(){ return this.salary;}
     public void setSalary(int salary){ this.salary = salary;}
-    public int getPremium(){ return this.premium;}
-    public void setPremium(int premium){ this.premium = premium;}
-
+    public int getBirthdayBonus(){ return this.birthday_bonus;}
+    public void setBirthdayBonus(int premium){ this.birthday_bonus = premium;}
     public void addToSalary(int addition){
         this.salary += addition;
     }

@@ -1,6 +1,7 @@
 package model.entity;
 
-import model.SalaryCounterWithMultiplier;
+import model.counters.SalaryCounter;
+import model.counters.SalaryCounterWithMultiplier;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class Organization {
     public int number_of_workers;
 
 
-
+    public SalaryCounter salaryCounter;
     public SalaryCounterWithMultiplier salaryCounterWithMultiplier;
     public ArrayList<Department> departments;
     public ArrayList<Employee> fired_workers;
@@ -22,11 +23,12 @@ public class Organization {
     public boolean isGeneralSalaryFond = true; // salary fond is general for all workers by default
 
     private int salary_fond;
-    private int bonus = 1000;   //default bonus for birthday
+    private int premium = 500; //default premium for all workers from the manager
+    private int birthday_bonus = 1000;   //default bonus for birthday
+
 
     public Organization(){
         this.salaryCounterWithMultiplier = new SalaryCounterWithMultiplier();
-
     }
 
     public void setSalaryForAllEmployee(){
@@ -42,7 +44,6 @@ public class Organization {
             }
 
         }
-
         else{
             for(Department department : departments){
                 department = salaryCounterWithMultiplier.getSalaryForDepartment(
@@ -261,6 +262,16 @@ public class Organization {
 
     }
 
+    public boolean setSalaryFondForEachDepartment(int[] salary_fonds){
+        int index = 0;
+        for(Department department : departments){
+            if(index >= salary_fonds.length){
+                return false;
+            }
+            department.setSalary_fond(salary_fonds[index++]);
+        }
+        return true;
+    }
     private int getNewId(){
         int new_id = counter_id++;
         return new_id;

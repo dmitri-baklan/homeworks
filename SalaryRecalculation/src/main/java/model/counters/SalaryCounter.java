@@ -1,4 +1,4 @@
-package model;
+package model.counters;
 
 import model.entity.*;
 
@@ -11,14 +11,14 @@ public class SalaryCounter{
     Date today;
 
     protected int salary_fond;
+    int birthday_bonus;
     int premium;
-    SalaryCounter(){}
 
     public Department getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
-        this.premium = 1000; //default premium
+        this.birthday_bonus = 1000; //default premium
         this.salary_fond = department.getSalary_fond();
         department = assignSalaryForDepartment(department);
         countCurrentAddition(number_of_directors,
@@ -86,7 +86,7 @@ public class SalaryCounter{
         director.setSalary(default_director_salary);
         this.salary_fond -= default_director_salary;
         if(checkIsBirthday(director)){
-            director.setPremium(this.premium);
+            director.setBirthdayBonus(this.birthday_bonus);
         }
     }
     public void assignManagersDefaultSalary(ArrayList<Manager> managers,
@@ -94,9 +94,11 @@ public class SalaryCounter{
         for(Manager manager : managers){
             manager.setSalary(default_manager_salary);
             this.salary_fond -= default_manager_salary;
+            
             if (checkIsBirthday(manager)) {
-                manager.setPremium(this.premium);
+                manager.setBirthdayBonus(this.birthday_bonus);
             }
+            manager.setPremium(getManagerPremium(manager.workers.size()));
         }
 
     }
@@ -107,7 +109,7 @@ public class SalaryCounter{
             worker.setSalary(default_worker_salary);
             this.salary_fond -= default_worker_salary;
             if(checkIsBirthday(worker)){
-                worker.setPremium(this.premium);
+                worker.setBirthdayBonus(this.birthday_bonus);
             }
         }
 
@@ -158,12 +160,20 @@ public class SalaryCounter{
         return false;
     }
 
+    public int getManagerPremium(int number_of_workers){
+        return number_of_workers * premium;
+    }
+    
     public int getSalary_fond() {return salary_fond;}
 
     public void setSalary_fond(int salary_fond) {
         this.salary_fond = salary_fond;
     }
-    public void setPremium(int premium){
+    public void setBirthdayBonus(int birthday_bonus){
+        this.birthday_bonus = birthday_bonus;
+    }
+
+    public void setPremium(int premium) {
         this.premium = premium;
     }
 }
