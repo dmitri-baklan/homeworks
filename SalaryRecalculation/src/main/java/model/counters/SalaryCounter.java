@@ -11,14 +11,14 @@ public class SalaryCounter{
     Date today;
 
     protected int salary_fond;
-    int birthday_bonus;
+    int birthday_bonus = 1000;  //default bonus
     int premium;
 
     public Department getSalaryForDepartment(Department department,
                                        int number_of_directors,
                                        int number_of_managers,
                                        int number_of_workers){
-        this.birthday_bonus = 1000; //default premium
+
         this.salary_fond = department.getSalary_fond();
         department = assignSalaryForDepartment(department);
         countCurrentAddition(number_of_directors,

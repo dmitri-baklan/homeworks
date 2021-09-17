@@ -1,6 +1,11 @@
 public class Circle extends Shape {
     private Point centerCircle;
     private double radius;
+    private String circ = "CIRCLE";
+
+    public String getCirc() {
+        return circ;
+    }
 
     public Circle(Point centerCircle, double radius)
             throws IllegalArgumentException {

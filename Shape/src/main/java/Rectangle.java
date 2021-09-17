@@ -1,6 +1,7 @@
 public class Rectangle extends Shape {
     private Point leftTop;// = new Point();
     private Point rightBottom;// = new Point();
+    public String RECTANGLE = "RECTANGLE";
 
     public Rectangle(Point leftTop, Point rightBottom) {
         this.leftTop = leftTop;

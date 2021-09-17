@@ -18,6 +18,9 @@ public class View {
     public static final String INPUT = "Input";
     public static final String ID = "ID";
     public static final String NUMBER = "number to";
+    public static final String SET = "Set";
+    public static final String SALLARY_FOND = "sallary fond";
+
 
     public void printMessage(String... message){
 

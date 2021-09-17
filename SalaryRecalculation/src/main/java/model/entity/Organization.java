@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Organization {
+    public String name;
+    
     private int counter_id = 0;
 //    public int number_of_employee;
     public int number_of_directors;
@@ -18,42 +20,61 @@ public class Organization {
     public SalaryCounter salaryCounter;
     public SalaryCounterWithMultiplier salaryCounterWithMultiplier;
     public ArrayList<Department> departments;
-    public ArrayList<Employee> fired_workers;
+    public ArrayList<Employee> fired_employee;
 
-    public boolean isGeneralSalaryFond = true; // salary fond is general for all workers by default
-
+    public boolean isDefaultCounter = true; // salary fond is general for all workers by default
+    public boolean isGeneralSalaryFond;
     private int salary_fond;
     private int premium = 500; //default premium for all workers from the manager
     private int birthday_bonus = 1000;   //default bonus for birthday
 
 
-    public Organization(){
+    public Organization(String name){
+        this.name = name;
+        this.salaryCounter = new SalaryCounter();
         this.salaryCounterWithMultiplier = new SalaryCounterWithMultiplier();
     }
 
-    public void setSalaryForAllEmployee(){
 
-        int number_of_depatments = departments.size();
-        if(isGeneralSalaryFond && (number_of_depatments != 0)){    //if fond is general all departments get equal parts
-            int fond_part = salary_fond / departments.size();
-            for(Department department : departments){
-                department.setSalary_fond(fond_part);
-                department = salaryCounterWithMultiplier.getSalaryForDepartment(
-                        department, number_of_directors,
-                        number_of_managers,number_of_workers);
-            }
-
+    public void setGeneralSalaryForAllDepartments(){
+        if(isDefaultCounter && (departments.size() != 0)){
+            setGeneralSalary(salaryCounter);
         }
         else{
-            for(Department department : departments){
-                department = salaryCounterWithMultiplier.getSalaryForDepartment(
-                        department, 1,                           //in this case each department has its
-                        department.getNumber_of_managers(),                      // own multiplier for workers
-                        department.getNumber_of_workers());
-            }
+            setGeneralSalary(salaryCounterWithMultiplier);
         }
     }
 
+    public void setIndividualSalaryForAllDepartments(int[] department_salaries){
+        if(setSalaryFondForEachDepartment(department_salaries)){
+            if(isDefaultCounter){
+                setIndividualSalary(salaryCounter);
+            }
+            else {
+                setIndividualSalary(salaryCounterWithMultiplier);
+            }
+        }
+
+    }
+
+    public void setGeneralSalary(SalaryCounter salaryCounter){
+        int fond_part = salary_fond / departments.size();
+        for(Department department : departments){
+            department.setSalary_fond(fond_part);
+            department = salaryCounter.getSalaryForDepartment(
+                    department, number_of_directors,
+                    number_of_managers,number_of_workers);
+        }
+    }
+
+    public void setIndividualSalary(SalaryCounter salaryCounter){
+        for(Department department : departments){
+            department = salaryCounter.getSalaryForDepartment(
+                    department, 1,                    //in this case each department has its
+                    department.getNumber_of_managers(),              //own multiplier for workers
+                    department.getNumber_of_workers());
+        }
+    }
 
     public void setSalary_fond(int salary_fond){
         this.salary_fond = salary_fond;
@@ -73,6 +94,25 @@ public class Organization {
                         return worker;
                     }
                 }
+            }
+        }
+        return new Employee();
+    }
+
+    public Employee getFiredEmployeeById(int id){
+        for(Employee employee : fired_employee){
+            if(employee.id == id){
+                return employee;
+            }
+        }
+        return new Employee();
+    }
+
+    public Employee returnEmployeeById(int id){
+        for(Employee employee : fired_employee){
+            if(employee.id == id){
+                fired_employee.remove(employee);
+                return employee;
             }
         }
         return new Employee();
@@ -175,13 +215,14 @@ public class Organization {
             if(department.director.id == replace_director_id){
                 new_director.managers = department.director.managers;
                 department.director.managers.clear();
-                fired_workers.add(department.director);
+                fired_employee.add(department.director);
                 department.director = new_director;
                 return new_director.id;
             }
         }
         return -1;
     }
+
     public int removeManagerById(int manager_id){
         for(Department department : departments){
             for(Manager manager : department.director.managers){
@@ -190,7 +231,7 @@ public class Organization {
                     department.director.managers = distributeManagerWorkers(
                             department.director.managers, manager.workers);
                     manager.workers.clear();
-                    fired_workers.add(manager);
+                    fired_employee.add(manager);
                     number_of_managers--;
                     return manager_id;
                 }
@@ -204,25 +245,13 @@ public class Organization {
                 for(Worker worker : manager.workers){
                     if(worker.id == worker_id){
                         manager.workers.remove(worker);
-                        fired_workers.add(worker);
+                        fired_employee.add(worker);
                         number_of_workers--;
                     }
                 }
             }
         }
         return -1;
-    }
-
-    public ArrayList<Manager> distributeManagerWorkers(ArrayList<Manager> managers,
-                                         ArrayList<Worker> workers){
-        int index = 0;
-        for(Worker worker : workers){
-            if(index == managers.size()){
-                index = 0;
-            }
-            managers.get(index++).workers.add(worker);
-        }
-        return managers;
     }
 
     public Department createNewDepartment(String name){
@@ -262,6 +291,88 @@ public class Organization {
 
     }
 
+
+    public void downgradeDirectorToManager(Director new_director,
+                                           int downgrade_director_id,
+                                           int new_director_for_manager_id){  //downgraded director
+        replaceDirectorById(new_director, downgrade_director_id);               // can get new department
+        Employee empl = returnEmployeeById(downgrade_director_id);
+        Manager manager = new Manager(empl.id, empl.name,
+                                        empl.middle_name, empl.surname,
+                                        empl.birth_date, empl.employment_date);
+        addNewManager(manager, new_director_for_manager_id);
+    }
+
+    public void downgradeDirectorToWorker(Director new_director,
+                                          int downgrade_director_id,
+                                          int new_manager_for_worker_id){
+        replaceDirectorById(new_director, downgrade_director_id);
+        Employee empl = returnEmployeeById(downgrade_director_id);
+        Worker worker = new Worker(empl.id, empl.name,
+                empl.middle_name, empl.surname,
+                empl.birth_date, empl.employment_date);
+
+        addNewWorker(worker, new_manager_for_worker_id);
+    }
+
+    public void downgradeManagerToWorker(int downgrade_manager_id,
+                                         int new_manager_for_worker_id){
+        removeManagerById(downgrade_manager_id);
+        Employee empl = returnEmployeeById(downgrade_manager_id);
+        Worker worker = new Worker(empl.id, empl.name,
+                empl.middle_name, empl.surname,
+                empl.birth_date, empl.employment_date);
+
+        addNewWorker(worker, new_manager_for_worker_id);
+    }
+
+    public void upgradeManagerToDirector(int upgrade_manager_id, 
+                                         String manager_description, 
+                                         int replace_director_id){
+        
+        removeManagerById(upgrade_manager_id);
+        Employee empl = returnEmployeeById(upgrade_manager_id);
+        Director director = new Director(empl.id, empl.name,
+                empl.middle_name, empl.surname,
+                empl.birth_date, empl.employment_date, manager_description);
+
+        replaceDirectorById(director, replace_director_id);
+    }
+
+    public void upgradeWorkerToManager(int upgrade_worker_id, 
+                                       int new_director_for_manager_id){
+        removeWorkerById(upgrade_worker_id);
+        Employee empl = returnEmployeeById(upgrade_worker_id);
+        Manager manager = new Manager(empl.id, empl.name,
+                empl.middle_name, empl.surname,
+                empl.birth_date, empl.employment_date);
+
+        addNewManager(manager, new_director_for_manager_id);
+    }
+
+    public void upgradeWorkerToDirector(int upgrade_worker_id, String worker_description,
+                                       int replace_director_id){
+        removeWorkerById(upgrade_worker_id);
+        Employee empl = returnEmployeeById(upgrade_worker_id);
+        Director director = new Director(empl.id, empl.name,
+                empl.middle_name, empl.surname,
+                empl.birth_date, empl.employment_date, worker_description);
+
+        replaceDirectorById(director, replace_director_id);
+    }
+    
+    public ArrayList<Manager> distributeManagerWorkers(ArrayList<Manager> managers,
+                                                       ArrayList<Worker> workers){
+        int index = 0;
+        for(Worker worker : workers){
+            if(index == managers.size()){
+                index = 0;
+            }
+            managers.get(index++).workers.add(worker);
+        }
+        return managers;
+    }
+
     public boolean setSalaryFondForEachDepartment(int[] salary_fonds){
         int index = 0;
         for(Department department : departments){
@@ -272,8 +383,38 @@ public class Organization {
         }
         return true;
     }
+
+    public int getPremium() {
+        return premium;
+    }
+
+    public void setPremium(int premium) {
+        this.premium = premium;
+    }
+
+    public int getBirthday_bonus() {
+        return birthday_bonus;
+    }
+
+    public void setBirthday_bonus(int birthday_bonus) {
+        this.birthday_bonus = birthday_bonus;
+    }
+
+    public int getNumber_of_directors() {
+        return number_of_directors;
+    }
+
+    public int getNumber_of_managers() {
+        return number_of_managers;
+    }
+
+    public int getNumber_of_workers() {
+        return number_of_workers;
+    }
+
     private int getNewId(){
         int new_id = counter_id++;
         return new_id;
     }
+
 }
