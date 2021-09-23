@@ -8,6 +8,7 @@ public class Director extends Employee{
     public ArrayList<Manager> managers;
     public String description;
 
+
     Director(int id, String name, String middle_name,
                     String surname, Date birth_date,
                     Date employment_date, String description) {

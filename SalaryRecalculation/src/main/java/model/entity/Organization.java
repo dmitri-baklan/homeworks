@@ -3,9 +3,7 @@ package model.entity;
 import model.counters.SalaryCounter;
 import model.counters.SalaryCounterWithMultiplier;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class Organization {
     public String name;
@@ -173,6 +171,11 @@ public class Organization {
             }
         }
         return -1;
+        ///////
+        Arrays
+
+
+        //////
 
     }
     public int updateManagerById(Manager new_manager, int manager_id){

@@ -2,9 +2,11 @@ package model.counters;
 
 import model.entity.*;
 
+import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Vector;
 
 public class SalaryCounter{
     private int addition_to_salary; //addition is equal for all employee
@@ -27,6 +29,7 @@ public class SalaryCounter{
                 this.salary_fond);
         department = getAdditionSalaryForDepartment(department);
         return department;
+
     }
 
 
