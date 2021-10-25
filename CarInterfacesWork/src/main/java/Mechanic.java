@@ -1,9 +1,9 @@
 public class Mechanic {
     private String name;
     private String birth_date;
-    private  CarMechanic carMechanic;
+    private CarMechanic carMechanic;
 
-    public Mechanic(String name, String birth_date, CarMechanic carMechanic){
+    public Mechanic(String name, String birth_date, CarMechanic carMechanic) {
         this.name = name;
         this.birth_date = birth_date;
         this.carMechanic = carMechanic;
@@ -29,24 +29,24 @@ public class Mechanic {
         this.birth_date = birth_date;
     }
 
-    public boolean checkEngineIsOK(){
+    public boolean checkEngineIsOK() {
         carMechanic.getEngine_capacity();
         /* do smth*/
         return true;
     }
 
-    public boolean checkGearbox(){
+    public boolean checkGearbox() {
         carMechanic.getGearbox();
         return true;
     }
 
-    public void changeColor(){
+    public void changeColor() {
         carMechanic.getColor();
         String new_color = "";
         carMechanic.setColor(new_color);
     }
 
-    public void changeTank_placement(){
+    public void changeTank_placement() {
         carMechanic.getTank_placement();
         String new_tank_placement = "";
         carMechanic.setTank_placement(new_tank_placement);

@@ -15,24 +15,45 @@ public class Employee {     //basic class for all workers
     private int salary;
     private int birthday_bonus;
     private int premium;
-    public Employee(){};
+
+    public Employee() {
+    }
+
+    ;
+
     public Employee(int id, String name, String middle_name, String surname,
-                    Date birth_date, Date employment_date){
+                    Date birth_date, Date employment_date) {
         this.id = id;
         this.name = name;
         this.middle_name = middle_name;
-        this. surname = surname;
+        this.surname = surname;
         this.birth_date = birth_date;
         this.employment_date = employment_date;
         this.isActive = true;
 
     }
-    public int getId(){return id;}
-    public int getSalary(){ return this.salary;}
-    public void setSalary(int salary){ this.salary = salary;}
-    public int getBirthdayBonus(){ return this.birthday_bonus;}
-    public void setBirthdayBonus(int premium){ this.birthday_bonus = premium;}
-    public void addToSalary(int addition){
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSalary() {
+        return this.salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public int getBirthdayBonus() {
+        return this.birthday_bonus;
+    }
+
+    public void setBirthdayBonus(int premium) {
+        this.birthday_bonus = premium;
+    }
+
+    public void addToSalary(int addition) {
         this.salary += addition;
     }
 

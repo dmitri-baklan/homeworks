@@ -9,22 +9,23 @@ public class View {
     public final String OUT_OF_RANGE_MESSAGE = "Incorrect number! Value should be in range: ";
     public final String INCORRECT_INPUT_MESSAGE = "Incorrect input! Enter a number, please: ";
 
-    View(){}
-    public void printMessage(String message){
+    View() {
+    }
+
+    public void printMessage(String message) {
         System.out.println(message);
     }
 
-    public void displayAttempts( ArrayList<Object> attempts){// all previously inputs
-        for(int i = 0; i < attempts.size(); i++){
-            System.out.print("["+(i+1)+"]"+attempts.get(i)+" ");
+    public void displayAttempts(ArrayList<Object> attempts) {// all previously inputs
+        for (int i = 0; i < attempts.size(); i++) {
+            System.out.print("[" + (i + 1) + "]" + attempts.get(i) + " ");
         }
         System.out.println("");
     }
 
-    public void displayCurrentBoundaries(int min, int max){
+    public void displayCurrentBoundaries(int min, int max) {
         System.out.println(min + "<=X<=" + max);
     }
-
 
 
 }

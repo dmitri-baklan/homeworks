@@ -5,6 +5,7 @@ public interface Regex {
     String REGEX_NAME_UA = "^[А-ЩЬЮЯЇЄҐ][а-щьюяїєґ]{1-20}$";
     String REGEX_LOGIN = "^[A-Za-z0-9_-]{6-20}$";
     String REGEX_PHONE_NUMBER = "^(\\+?380)?[\\d]{9}";
+    String regex = "^[A-Z][\\w'\\-,.][^0-9_!¡?÷?¿\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{1,18}$";
 
 
 }

@@ -1,4 +1,5 @@
 package controller;
+
 import model.entity.NotUniqeLoginException;
 import model.entity.Note;
 import view.View;
@@ -23,40 +24,40 @@ public class InputNoteNoteBook {
     private String localeData;
     UtilityController utilityController;
 
-    public InputNoteNoteBook(View view, Scanner sc){
+    public InputNoteNoteBook(View view, Scanner sc) {
         this.view = view;
         this.sc = sc;
         this.utilityController = new UtilityController(this.sc, this.view);
     }
 
-    public void InputNote(){
+    public void InputNote() {
         setLocaleData();
         InputFirstName();
         InputLoginData();
 //        this.note.phoneNumber = utilityController.InputStringValueWithScanner(PHONE_NUMBER_DATA, REGEX_PHONE_NUMBER);
     }
 
-    public void setLocaleData(){
+    public void setLocaleData() {
         localeData = (String.valueOf(View.bundle.getLocale()).equals("ua"))
                 ? REGEX_NAME_UA : REGEX_NAME_LAT;
     }
 
-    public void InputFirstName(){
+    public void InputFirstName() {
         firstName = utilityController.InputStringValueWithScanner(
                 FIRST_NAME, localeData);
     }
 
-    public void InputLoginData(){
+    public void InputLoginData() {
         login = utilityController.InputStringValueWithScanner(
                 LOGIN_DATA, REGEX_LOGIN);
     }
 
 
-
     public String getFirstName() {
         return firstName;
     }
-    public String getLogin(){
+
+    public String getLogin() {
         return login;
     }
 }

@@ -1,4 +1,5 @@
 package model.entity;
+
 import java.util.ArrayList;
 
 public class Note {
@@ -17,7 +18,7 @@ public class Note {
     public String skype;
     public String address;
 
-    public class address{
+    public class address {
         public int index;
         public String city;
         public String street;
@@ -29,8 +30,8 @@ public class Note {
     public String dateOfAdded;
     public String dateofChanged;
 
-    public Note(String firstName, String loginData) throws NotUniqeLoginException{
-        if(DBNoteBook.checkLoginIsExist(loginData)){
+    public Note(String firstName, String loginData) throws NotUniqeLoginException {
+        if (DBNoteBook.checkLoginIsExist(loginData)) {
             throw new NotUniqeLoginException("Login is not uniqe!", loginData);
         }
         this.firstName = firstName;

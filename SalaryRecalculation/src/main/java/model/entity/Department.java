@@ -13,20 +13,22 @@ public class Department {
     public int default_manager_salary = 10000;
     public int default_worker_salary = 7000;
 
-//    public Employee[] Employee;
+    //    public Employee[] Employee;
     int salary_fond;
     public Director director;
 
-    public Department(int id, String name){
+    public Department(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void countSalary(){
+    public void countSalary() {
 
     }
 
-    public Director getDirector() {return director;}
+    public Director getDirector() {
+        return director;
+    }
 
     public int getDefault_director_salary() {
         return default_director_salary;
@@ -60,7 +62,7 @@ public class Department {
         this.salary_fond = salary_fond;
     }
 
-    public int getNumber_of_managers(){
+    public int getNumber_of_managers() {
         Objects.requireNonNull(this.director.managers,
                 "Managers is null! Director id:" + this.director.id);
         return this.director.managers.size();
@@ -68,7 +70,7 @@ public class Department {
 
     public int getNumber_of_workers() {
         int number_of_workers = 0;
-        for(Manager manager: this.director.managers){
+        for (Manager manager : this.director.managers) {
 
             number_of_workers += manager.getNumberOfWorkers();
         }

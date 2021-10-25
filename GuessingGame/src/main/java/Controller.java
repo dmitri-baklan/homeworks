@@ -16,16 +16,16 @@ public class Controller {
     ArrayList<Object> attempts = new ArrayList<Object>();
 
 
-    public Controller(Model model, View view){
+    public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
     }
 
-    public void startGame(){
+    public void startGame() {
         int input = -1;
         model.generateRandNumber();
 
-        do{
+        do {
             Scanner sc = new Scanner(System.in);
             view.printMessage(view.GREETING_MESSAGE);
             view.displayCurrentBoundaries(model.getMinBoundary(), model.getMaxBoundary());
@@ -35,13 +35,13 @@ public class Controller {
 
             //view.printMessage(Integer.toString(model.getX_value()));
 
-            if(!sc.hasNextInt()){
+            if (!sc.hasNextInt()) {
                 view.printMessage(view.INCORRECT_INPUT_MESSAGE);
                 continue;
             }
             input = sc.nextInt();
 
-            if(!model.checkInputInRange(input)){
+            if (!model.checkInputInRange(input)) {
                 view.printMessage(view.OUT_OF_RANGE_MESSAGE);
                 continue;
             }
@@ -49,22 +49,21 @@ public class Controller {
 
             attempts.add(input);
 
-            if(model.checkWin(input)){
+            if (model.checkWin(input)) {
                 view.printMessage(view.WINNING_MESSAGE + model.getX_value());
                 return;
             }
-            if(model.checkIsBiggerThanX(input)){
+            if (model.checkIsBiggerThanX(input)) {
                 model.setMaxBoundary(input);
-                view.printMessage("\""+input+"\""+view.INPUT_BIGGER_MESSAGE);
+                view.printMessage("\"" + input + "\"" + view.INPUT_BIGGER_MESSAGE);
                 continue;
-            }
-            else{
+            } else {
                 model.setMinBoundary(input);
-                view.printMessage("\""+input+"\""+view.INPUT_LESS_MESSAGE);
+                view.printMessage("\"" + input + "\"" + view.INPUT_LESS_MESSAGE);
                 continue;
             }
 
-        }while(!model.checkWin(input));
+        } while (!model.checkWin(input));
 
     }
 

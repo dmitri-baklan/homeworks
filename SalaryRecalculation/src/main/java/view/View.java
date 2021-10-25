@@ -22,15 +22,15 @@ public class View {
     public static final String SALLARY_FOND = "sallary fond";
 
 
-    public void printMessage(String... message){
+    public void printMessage(String... message) {
 
         System.out.println(concatenateString(message));
     }
 
-    public String concatenateString(String... message){
+    public String concatenateString(String... message) {
         StringBuilder concatString = new StringBuilder();
-        for(String str: message ){
-            concatString = concatString.append(str+" ");
+        for (String str : message) {
+            concatString = concatString.append(str + " ");
         }
         return new String(concatString);
     }

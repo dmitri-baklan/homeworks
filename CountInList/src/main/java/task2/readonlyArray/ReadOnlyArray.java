@@ -6,13 +6,17 @@ public class ReadOnlyArray {
 
     private ArrayList<Integer> arr;
 
-    public void add(int value){
-        arr.add(value);
-    }
-    public int get(int index){
-        return arr.get(index);
+    public ReadOnlyArray(ArrayList<Integer> arr) {
+        this.arr = arr;
     }
 
+    public void add(int value) {
+        arr.add(value);
+    }
+
+    public int get(int index) {
+        return arr.get(index);
+    }
 
 
 }

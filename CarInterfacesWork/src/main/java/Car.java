@@ -1,4 +1,4 @@
-public class Car implements CarGassAttendant, CarMechanic{
+public class Car implements CarGassAttendant, CarMechanic {
     private String model;
     private String number;
     private String vin;
@@ -14,7 +14,7 @@ public class Car implements CarGassAttendant, CarMechanic{
     }
 
     public Car(String model, String number, String vin, String type, String color,
-               String tank_placement, String engine_capacity,  String type_of_engine, String gearbox) {
+               String tank_placement, String engine_capacity, String type_of_engine, String gearbox) {
         this.model = model;
         this.number = number;
         this.vin = vin;
@@ -52,7 +52,9 @@ public class Car implements CarGassAttendant, CarMechanic{
     }
 
     @Override
-    public String getType(){ return type;}
+    public String getType() {
+        return type;
+    }
 
     public void setType(String type) {
         this.type = type;

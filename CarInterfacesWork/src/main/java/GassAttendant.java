@@ -5,7 +5,7 @@ public class GassAttendant {
     private String name;
     private String birth_date;
 
-    public GassAttendant(String name, String birth_date, CarGassAttendant carGassAttendant){
+    public GassAttendant(String name, String birth_date, CarGassAttendant carGassAttendant) {
         this.name = name;
         this.birth_date = birth_date;
         this.carGassAttendant = carGassAttendant;
@@ -35,7 +35,7 @@ public class GassAttendant {
         this.name = name;
     }
 
-    public void refulCar(){
+    public void refulCar() {
         carGassAttendant.getTank_placement();
         carGassAttendant.getType_of_engine();
         System.out.println("Car is full of fuel");

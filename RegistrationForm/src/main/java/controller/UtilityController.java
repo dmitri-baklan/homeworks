@@ -1,4 +1,5 @@
 package controller;
+
 import view.View;
 
 
@@ -10,7 +11,7 @@ public class UtilityController {
     private View view;
     private Scanner scanner;
 
-    public UtilityController(Scanner scanner, View view){
+    public UtilityController(Scanner scanner, View view) {
         this.scanner = scanner;
         this.view = view;
     }
@@ -18,7 +19,7 @@ public class UtilityController {
     String InputStringValueWithScanner(String message, String regex) {
         String res;
         view.printStringInput(message);
-        while( !(scanner.hasNext() && (res = scanner.next()).matches(regex))) {
+        while (!(scanner.hasNext() && (res = scanner.next()).matches(regex))) {
             view.printWrongStringInput(message);
         }
         return res;
